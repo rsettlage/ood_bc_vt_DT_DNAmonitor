@@ -1,0 +1,47 @@
+#!/usr/bin/env bash
+unset XDG_RUNTIME_DIR
+
+# Start RStudio Server
+echo starting Rstudio Server on $(hostname)
+
+#### set/create R_LIBS directory
+#    looks to me as if that is now R_LIBS_USER
+if [ ! -d ~/R/OOD/3.6.1 ]; then
+    echo need to make R_LIBS_USER directory
+    mkdir -p ~/R/OOD/3.6.1
+fi
+#### make sure singularity directory is present
+if [ ! -d ${SINGULARITY_PULLDIR} ]; then
+   mkdir -vp ${SINGULARITY_PULLDIR}
+fi
+
+module load singularity
+export http_proxy="http://uaserve.cc.vt.edu:8080"; export https_proxy="http://uaserve.cc.vt.edu:8080"
+
+## fix the rstudio error on start
+find ~/.rstudio/sessions/active/*/session-persistent-state -type f | xargs sed -i '' -e 's/abend="1"/abend="0"/'
+
+set -x
+# pull the RStudio Server
+echo build container first, this can take some time 
+echo ood-rstudio-<%= context.Rpackageset %>:<%= context.Rversion %>
+
+singularity pull --force docker://rsettlag/ood-rstudio-<%= context.Rpackageset %>:<%= context.Rversion %>
+#export SLURM_CONF=/etc/slurm/slurm.conf 
+#srun -N 1 -n 1 --exclusive --cpus-per-task=2 --partition=normal_q --time=1:00:00 --account=$SLURM_JOB_ACCOUNT bash create_container.sh docker://rsettlag/ood-rstudio-<%= context.Rpackageset %>:<%= context.Rversion %>
+
+
+echo "Starting up rserver..."
+
+#set working dir to home
+cd $HOME
+
+singularity exec --bind=${TMPDIR}:/tmp,/groups:/groups,/work:/work  \
+   ${SINGULARITY_PULLDIR}/ood-rstudio-<%= context.Rpackageset %>_<%= context.Rversion %>.sif rserver \
+   --auth-encrypt-password=0 \
+   --server-app-armor-enabled=0 \
+   --auth-none=0 \
+   --www-port=${port} \
+   --auth-pam-helper-path=pam-helper
+
+
