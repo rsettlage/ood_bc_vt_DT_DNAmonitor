@@ -1,0 +1,39 @@
+---
+cluster: "dragonstooth"
+form:
+  - bc_account
+  - reservation
+  - project
+##  - doBASECALLING
+  - guppyPARAMS
+  - doCENTRIFUGE
+  - bc_email_on_started
+attributes:
+  bc_account:
+    label: "Allocation"
+    help: "SLURM allocation to use for this job."
+
+  reservation:
+    label: "Reservation"
+    help: "(Leave blank if you are not targeting a particular reservation.)"
+
+  project:
+    label: "Project name"
+    value: "test_data"
+    help: "This will be where data will get stored -- will add timestamp for uniqueness"
+
+  doBASECALLING:
+    label: "Do base calling"
+    widget: check_box
+    help: "Convert fast5 --> fastq."
+
+  guppyPARAMS:
+    label: "Guppy calling parameters"
+    value: "--cpu_threads_per_caller 2 --num_callers 6 --flowcell FLO-MIN107 --kit SQK-LSK109"
+    help: "default --cpu_threads_per_caller 2 --num_callers 6 --flowcell FLO-MIN107 --kit SQK-LSK109"
+
+  doCENTRIFUGE:
+    label: "Run Centrifuge"
+    value: "tbd -- want this to be a pulldown with no and available dbs"
+    help: "Run Centrifuge?  If so, choose from available databases."
+

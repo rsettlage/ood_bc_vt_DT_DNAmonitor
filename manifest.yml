@@ -1,0 +1,9 @@
+---
+name: DNAmonitor
+category: Interactive Apps
+subcategory: Dragonstooth
+role: batch_connect
+description: |
+  This app will create a project directory, start the [DNAmonitor] pipeline watcher, and start a result viewer.
+
+  [DNAmonitor]: http://github.io.rsettlag/DNAmonitor
