@@ -1,6 +1,6 @@
-# Batch Connect - VT-ARC autoHPC
+# Batch Connect - VT-ARC DNAmonitor
 
-This app is a convinience form that creates the project file needed for autoHPC.
+This app is a convinience form that starts the DNAmonitor pipeline.
 
 ## Prerequisites
 
@@ -33,7 +33,7 @@ Again, you do not need to restart the app as it isn't a Passenger app.
 
 ## Contributing
 
-1. Fork it ( https://github.com/rsettlag/bc_vt_autoHPC/ )
+1. Fork it ( https://github.com/rsettlage/ood_bc_vt_DT_DNAmonitor.git )
 2. Create your feature branch (`git checkout -b my-new-feature`)
 3. Commit your changes (`git commit -am 'Add some feature'`)
 4. Push to the branch (`git push origin my-new-feature`)
